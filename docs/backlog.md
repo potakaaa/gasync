@@ -1,24 +1,103 @@
 # Product Backlog: Group Work Contribution Analyzer
 
-Product goal: help group project teams measure and discuss individual contribution using self evaluation, peer evaluation, and activity logs.
-
 ## User Stories
 
-| ID | User story | Priority | Points | Acceptance criteria |
-| --- | --- | --- | --- | --- |
-| 1 | As a team member, I want to submit a self evaluation so that I can describe my own contribution to the project. | P1 | 3 | A self evaluation form is available; responses can be saved; submission status is visible; the user can edit before the review window closes. |
-| 2 | As a team member, I want to rate my peers so that the team can capture shared feedback on contribution. | P1 | 5 | A peer rating form lists all teammates; ratings can be submitted once per review period; ratings are stored with timestamps; duplicate submissions are prevented. |
-| 3 | As a project lead, I want to define the project team and review cycle so that evaluations are collected for the correct group and timeframe. | P1 | 5 | A team can be created or imported; members can be added and removed; review start and end dates can be configured; the system prevents submissions outside the active window. |
-| 4 | As a project lead, I want to track tasks and ownership so that contribution can be compared against assigned work. | P1 | 8 | Tasks can be created with owner, due date, and status; tasks can be updated as work progresses; the activity log records task changes; task data is available in contribution reports. |
-| 5 | As a student, I want my activity log to capture meaningful actions so that the contribution score has evidence beyond ratings. | P1 | 8 | The system records task creation, updates, completions, and review submissions; activity entries include user, action, and timestamp; logged events appear in the contribution timeline. |
-| 6 | As a project lead, I want the system to calculate a contribution score so that I can compare team members consistently. | P1 | 8 | A score is generated from self evaluation, peer ratings, and activity logs; the formula is documented; recalculation happens when inputs change; the score is visible per member. |
-| 7 | As a project lead, I want to view a contribution dashboard so that I can quickly identify balanced or uneven participation. | P2 | 5 | The dashboard shows each member’s score, task completion, peer feedback, and activity summary; users can sort and filter members; the view loads without missing data for reviewed members. |
-| 8 | As a student, I want to see my own contribution summary so that I understand how I am being evaluated. | P2 | 3 | Each member can open a personal summary; the summary shows their score breakdown; feedback is readable; private peer identities are masked where required. |
-| 9 | As an instructor, I want to export contribution reports so that I can use them in grading and review meetings. | P2 | 5 | Reports can be exported as PDF or CSV; exported files include scores, task data, and key feedback; exports respect the selected team and review cycle. |
-| 10 | As a project lead, I want to flag contribution disputes so that low-confidence ratings can be reviewed manually. | P3 | 5 | A dispute can be created for a member or review cycle; the dispute captures notes and status; flagged records are highlighted in reports; manual overrides are tracked. |
+### Story 1
+As a student, I want to submit a self evaluation so that I can describe my contribution clearly.
 
-## Prioritization Notes
+- Priority: High
+- Story points: 3
+- Acceptance criteria:
+- I can open a self evaluation form for the active review window.
+- I can save and submit my self evaluation.
+- I can see whether my self evaluation is submitted or pending.
 
-- P1 items establish the minimum viable workflow: collect evaluations, track work, and compute a score.
-- P2 items improve visibility for students and instructors.
-- P3 items support exception handling and administrative follow-up.
+### Story 2
+As a student, I want to rate my teammates so that peer feedback is part of contribution scoring.
+
+- Priority: High
+- Story points: 5
+- Acceptance criteria:
+- I can view all teammates except myself in the peer rating form.
+- I can submit one peer rating per teammate in a review cycle.
+- The system records submission time and prevents duplicate submissions.
+
+### Story 3
+As a PM/Scrum lead, I want to define review periods so that evaluations happen on schedule.
+
+- Priority: High
+- Story points: 3
+- Acceptance criteria:
+- I can create a review period with start and end dates.
+- Students can submit evaluations only during an active review period.
+- Closed review periods are visible as read-only history.
+
+### Story 4
+As a team member, I want to create and update tasks so that work progress is trackable.
+
+- Priority: High
+- Story points: 5
+- Acceptance criteria:
+- I can create a task with title, owner, and due date.
+- I can move a task across status states (To Do, In Progress, Done).
+- Task updates are saved and visible to the full group.
+
+### Story 5
+As a QA lead, I want activity logs for key actions so that contribution evidence is auditable.
+
+- Priority: High
+- Story points: 5
+- Acceptance criteria:
+- The system logs task creation, task status updates, and evaluation submissions.
+- Each log entry includes actor, action, and timestamp.
+- Logs are viewable per member and per project.
+
+### Story 6
+As a PM/Scrum lead, I want an initial contribution score formula so that contribution can be compared fairly.
+
+- Priority: High
+- Story points: 8
+- Acceptance criteria:
+- The score combines self evaluation, peer rating, and activity signals.
+- Score inputs and weights are documented in the app.
+- Scores recalculate when underlying data changes.
+
+### Story 7
+As a student, I want to see my score breakdown so that I understand how my final score was computed.
+
+- Priority: Med
+- Story points: 3
+- Acceptance criteria:
+- I can view my total score and component weights.
+- I can see my completed tasks and activity summary.
+- Peer feedback is shown with reviewer identity hidden.
+
+### Story 8
+As an instructor, I want a team contribution dashboard so that I can quickly detect participation imbalance.
+
+- Priority: Med
+- Story points: 8
+- Acceptance criteria:
+- I can view all members with score, task completion, and activity volume.
+- I can sort members by score and completed tasks.
+- I can filter the dashboard by review period.
+
+### Story 9
+As a Docs lead, I want report export so that sprint review evidence can be shared externally.
+
+- Priority: Low
+- Story points: 2
+- Acceptance criteria:
+- I can export contribution summaries to CSV.
+- Exported data includes member name, score, and task summary.
+- Exports use the currently selected review period.
+
+### Story 10
+As a PM/Scrum lead, I want to flag scoring disputes so that questionable evaluations are reviewed.
+
+- Priority: Low
+- Story points: 2
+- Acceptance criteria:
+- I can create a dispute record for a member and review period.
+- A dispute includes reason, status, and owner.
+- Resolved disputes remain in audit history.

@@ -1,16 +1,23 @@
 # Team Roles: Group Work Contribution Analyzer
 
-## Team Assignments
+## Rotation Roles
 
-| Team member | Role | Responsibilities |
-| --- | --- | --- |
-| Rald Helbiro | Product Owner | Owns backlog priority, clarifies acceptance criteria, and signs off on sprint scope. |
-| Ira Narisma| Scrum Master | Facilitates ceremonies, removes blockers, and keeps the team on sprint cadence. |
-| Hans Del Mundo | Full-Stack Developer | Builds task tracking, evaluation forms, and contribution scoring logic. |
-| Vin Gerebise| QA Analyst | Defines test cases for scoring, review windows, and permission rules; verifies acceptance criteria. |
+Roles rotate each sprint: PM/Scrum, QA lead, DevOps lead, Docs lead.
 
-## Working Agreement
+## Sprint Rotation Plan
 
-- Product Owner confirms priority tradeoffs before any scope change.
-- Scrum Master tracks blockers daily and escalates risks immediately.
-- Developer, designer, QA, and analytics roles collaborate on story refinement before implementation begins.
+| Sprint | PM/Scrum | QA lead | DevOps lead | Docs lead |
+| --- | --- | --- | --- | --- |
+| Sprint 1 | Rald Helbiro | Vin Gerebise | Hans Del Mundo | Ira Narisma |
+| Sprint 2 | Ira Narisma | Rald Helbiro | Vin Gerebise | Hans Del Mundo |
+| Sprint 3 | Hans Del Mundo | Ira Narisma | Rald Helbiro | Vin Gerebise |
+| Sprint 4 | Vin Gerebise | Hans Del Mundo | Ira Narisma | Rald Helbiro |
+
+## Role Responsibilities
+
+| Role | Responsibilities |
+| --- | --- |
+| PM/Scrum | Runs standups and sprint ceremonies, tracks blockers, and aligns delivery with backlog priority. |
+| QA lead | Owns test planning, acceptance validation, and release quality checks for completed stories. |
+| DevOps lead | Maintains branch strategy, PR hygiene, CI checks, and deployment readiness. |
+| Docs lead | Keeps backlog, sprint plan, risk register, and release notes accurate and current. |

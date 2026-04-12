@@ -1,33 +1,28 @@
 # Sprint 1 Plan: Group Work Contribution Analyzer
 
-Sprint goal: deliver the first usable evaluation flow, basic task tracking, and an initial contribution score for a single project team.
+Sprint goal: deliver the MVP contribution workflow with evaluations, task tracking, and first-pass scoring.
 
-## Selected Stories
+## Selected Stories (Sprint 1)
 
-1. Story 1 - Self evaluation submission - P1 - 3 points
-2. Story 2 - Peer rating submission - P1 - 5 points
-3. Story 3 - Team and review cycle setup - P1 - 5 points
-4. Story 4 - Task tracking and ownership - P1 - 8 points
-5. Story 5 - Activity log capture - P1 - 8 points
-6. Story 6 - Contribution score calculation - P1 - 8 points
+| Story | Summary | Priority | Points | Owner |
+| --- | --- | --- | --- | --- |
+| Story 1 | Self evaluation submission | High | 3 | Rald Helbiro |
+| Story 2 | Peer rating submission | High | 5 | Vin Gerebise |
+| Story 3 | Review period setup | High | 3 | Ira Narisma |
+| Story 4 | Task create and status updates | High | 5 | Hans Del Mundo |
+| Story 5 | Activity logging for key actions | High | 5 | Vin Gerebise |
+| Story 6 | Initial contribution score formula | High | 8 | Rald Helbiro |
+
+Total points: 29
 
 ## Sprint Scope
 
-- Create the core data model for team members, tasks, evaluations, and activity events.
-- Allow one active review cycle per team.
-- Support self evaluation and peer rating submissions.
-- Record key task and review actions in the activity log.
-- Compute a contribution score from the collected inputs and display it for each member.
+- Build review period setup and evaluation submission flow.
+- Build basic task tracking and activity log capture.
+- Implement and validate initial contribution score calculation.
 
-## Out Of Scope
+## Definition of Done
 
-- Contribution dashboard filters and advanced analytics.
-- Exportable reports.
-- Dispute handling and manual overrides.
-- Privacy controls beyond basic reviewer visibility rules.
-
-## Delivery Notes
-
-- The sprint should end with a demoable workflow for one team and one review cycle.
-- Any scoring formula changes should be documented before the sprint review.
-- Pair testing is recommended for the evaluation flow because it contains the highest-risk business logic.
+- Each selected story meets all acceptance criteria in the backlog.
+- QA sign-off is recorded for each completed story.
+- Sprint demo includes end-to-end flow from task updates to score output.
