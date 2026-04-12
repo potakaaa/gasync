@@ -1,4 +1,4 @@
-# Team Roles: Group Work Contribution Analyzer
+# Team Roles: Gas Price Viewer
 
 ## Rotation Roles
 
@@ -17,7 +17,7 @@ Roles rotate each sprint: PM/Scrum, QA lead, DevOps lead, Docs lead.
 
 | Role | Responsibilities |
 | --- | --- |
-| PM/Scrum | Runs standups and sprint ceremonies, tracks blockers, and aligns delivery with backlog priority. |
-| QA lead | Owns test planning, acceptance validation, and release quality checks for completed stories. |
-| DevOps lead | Maintains branch strategy, PR hygiene, CI checks, and deployment readiness. |
-| Docs lead | Keeps backlog, sprint plan, risk register, and release notes accurate and current. |
+| PM/Scrum | Runs ceremonies, prioritizes high-impact gas-price features, and manages scope during fast-moving world events. |
+| QA lead | Validates price accuracy, event-source reliability, and alert behavior before release. |
+| DevOps lead | Maintains data ingestion reliability, API monitoring, CI checks, and production readiness. |
+| Docs lead | Maintains backlog, sprint plan, risk register, and public notes explaining high-price drivers. |

@@ -1,5 +1,7 @@
 # Git Workflow Rule
 
+Applies to the Gas Price Viewer project.
+
 ## Mandatory Rule
 
 All changes must go through Pull Requests (PR).
