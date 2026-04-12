@@ -1,20 +1,15 @@
 # Risk Register: Group Work Contribution Analyzer
 
-Risk scoring uses a 1-5 scale for likelihood and impact. Risk score = likelihood x impact.
+Scoring rule: Score = Likelihood x Impact.
 
-| ID | Risk | Likelihood | Impact | Score | Owner | Mitigation plan |
-| --- | --- | --- | --- | --- | --- | --- |
-| R1 | Peer ratings may be biased or inconsistent across teammates. | 4 | 5 | 20 | Rald Helbiro | Use clear rating criteria, anonymize peer feedback where possible, and include calibration guidance before each review cycle. |
-| R2 | Self evaluations may be inflated and reduce trust in the contribution score. | 4 | 4 | 16 | Rald Helbiro | Weight self evaluation lower than peer and activity evidence, and show the score breakdown to make the formula transparent. |
-| R3 | Activity logs may miss important work done outside the app. | 3 | 5 | 15 | Hans Del Mundo | Require lightweight task updates, support manual log notes, and define what counts as evidence during onboarding. |
-| R4 | Task ownership may be unclear when work is shared between multiple students. | 3 | 4 | 12 | Ira Narisma | Allow co-owners, add task notes for shared work, and review ambiguous assignments during sprint planning. |
-| R5 | The contribution score formula may be disputed if it is not transparent. | 4 | 5 | 20 | Vin Gerebise | Document the formula, keep scoring weights visible, and version changes so instructors can explain revisions. |
-| R6 | Late or incomplete peer submissions may delay the final score. | 3 | 4 | 12 | Ira Narisma | Send reminders before the review window closes, allow a short grace period, and surface missing submissions in the dashboard. |
-| R7 | Privacy concerns may arise if peer feedback is too identifiable. | 2 | 5 | 10 | Vin Gerebise | Mask reviewer identities in summaries, restrict access by role, and redact comments when exporting reports. |
-| R8 | Data entry errors may produce inaccurate contribution reports. | 3 | 4 | 12 | Hans Del Mundo | Add validation for scores and dates, provide review screens before submission, and flag outlier values for QA checks. |
-
-## Review Notes
-
-- Update this register at the start of each sprint planning session.
-- Escalate any risk with a score of 16 or higher before implementation starts.
-- Keep mitigation actions tied to specific owners so follow-up is clear.
+| Risk | Likelihood (1-5) | Impact (1-5) | Score | Mitigation | Owner |
+| --- | --- | --- | --- | --- | --- |
+| Peer ratings are biased or inconsistent across teammates. | 4 | 5 | 20 | Provide rating rubric examples, run calibration at review start, and flag outlier ratings for QA review. | Vin Gerebise |
+| Self evaluations are inflated and distort final scores. | 4 | 4 | 16 | Cap self-evaluation weight and show score breakdown so users can audit influence by component. | Rald Helbiro |
+| Task updates are not kept current, reducing evidence quality. | 3 | 4 | 12 | Add required status updates at checkpoint dates and weekly PM/Scrum follow-up for stale tasks. | Hans Del Mundo |
+| Review window opens late or closes early due to configuration errors. | 3 | 5 | 15 | Add validation for dates, timezone checks, and QA sign-off before activating each review cycle. | Ira Narisma |
+| Configurable weight settings are misconfigured and produce unfair scores. | 4 | 5 | 20 | Enforce total weight = 100, keep versioned weight history, and require PM/Scrum approval for weight changes. | Ira Narisma |
+| Role-based access is too broad and exposes peer feedback details. | 2 | 5 | 10 | Apply least-privilege permissions and mask reviewer identity in student-facing views. | Vin Gerebise |
+| Score recalculation fails after data or weight changes. | 3 | 5 | 15 | Add recalculation regression tests, retry queue for failures, and alerting on stale score snapshots. | Hans Del Mundo |
+| Sprint scope churn from change requests causes delivery slippage. | 4 | 4 | 16 | Use change control checkpoints and swap equal-size stories instead of adding net-new sprint points. | Rald Helbiro |
+| Exported reports omit recent updates due to caching delays. | 2 | 4 | 8 | Refresh cache before export and include generation timestamp and source period metadata in report headers. | Ira Narisma |

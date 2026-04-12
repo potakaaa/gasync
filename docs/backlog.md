@@ -101,3 +101,19 @@ As a PM/Scrum lead, I want to flag scoring disputes so that questionable evaluat
 - I can create a dispute record for a member and review period.
 - A dispute includes reason, status, and owner.
 - Resolved disputes remain in audit history.
+
+### Story 11 (Change Request)
+As an instructor, I want configurable score weights per course so that contribution scoring matches each course rubric.
+
+- Priority: High
+- Story points: 5
+- Acceptance criteria:
+- I can configure percentage weights for self evaluation, peer rating, and activity evidence.
+- The configured weights must total 100 before saving.
+- Updated weights are versioned and applied to future score calculations.
+
+## Change Request Simulation
+
+- New requirement added: configurable scoring weights per course.
+- Backlog impact: Story 11 added as High priority.
+- Sprint impact: Story 11 is pulled into Sprint 1 and one story is moved out to protect capacity.
