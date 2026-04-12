@@ -1,15 +1,15 @@
-# Risk Register: Group Work Contribution Analyzer
+# Risk Register: Gas Price Viewer
 
 Scoring rule: Score = Likelihood x Impact.
 
 | Risk | Likelihood (1-5) | Impact (1-5) | Score | Mitigation | Owner |
 | --- | --- | --- | --- | --- | --- |
-| Peer ratings are biased or inconsistent across teammates. | 4 | 5 | 20 | Provide rating rubric examples, run calibration at review start, and flag outlier ratings for QA review. | Vin Gerebise |
-| Self evaluations are inflated and distort final scores. | 4 | 4 | 16 | Cap self-evaluation weight and show score breakdown so users can audit influence by component. | Rald Helbiro |
-| Task updates are not kept current, reducing evidence quality. | 3 | 4 | 12 | Add required status updates at checkpoint dates and weekly PM/Scrum follow-up for stale tasks. | Hans Del Mundo |
-| Review window opens late or closes early due to configuration errors. | 3 | 5 | 15 | Add validation for dates, timezone checks, and QA sign-off before activating each review cycle. | Ira Narisma |
-| Configurable weight settings are misconfigured and produce unfair scores. | 4 | 5 | 20 | Enforce total weight = 100, keep versioned weight history, and require PM/Scrum approval for weight changes. | Ira Narisma |
-| Role-based access is too broad and exposes peer feedback details. | 2 | 5 | 10 | Apply least-privilege permissions and mask reviewer identity in student-facing views. | Vin Gerebise |
-| Score recalculation fails after data or weight changes. | 3 | 5 | 15 | Add recalculation regression tests, retry queue for failures, and alerting on stale score snapshots. | Hans Del Mundo |
-| Sprint scope churn from change requests causes delivery slippage. | 4 | 4 | 16 | Use change control checkpoints and swap equal-size stories instead of adding net-new sprint points. | Rald Helbiro |
-| Exported reports omit recent updates due to caching delays. | 2 | 4 | 8 | Refresh cache before export and include generation timestamp and source period metadata in report headers. | Ira Narisma |
+| Upstream gas price API has outages during market volatility spikes. | 4 | 5 | 20 | Integrate fallback data provider, cache recent prices, and display provider status in UI. | Hans Del Mundo |
+| Prices become stale during breaking geopolitical events, misleading users. | 4 | 5 | 20 | Enforce freshness thresholds, show staleness warnings, and prioritize rapid refresh for affected regions. | Ira Narisma |
+| Event feed includes unverified claims that reduce user trust. | 3 | 5 | 15 | Allow only vetted sources, require citations, and add editorial review before publishing event cards. | Vin Gerebise |
+| Currency and unit conversion errors produce incorrect comparisons. | 3 | 4 | 12 | Centralize conversion logic, test against known benchmarks, and monitor anomalies. | Rald Helbiro |
+| Alert notifications are delayed and fail to warn users before a price jump. | 3 | 5 | 15 | Add queue retries, latency monitoring, and user-visible delivery status for alerts. | Hans Del Mundo |
+| Sudden regional taxes or policy changes are not reflected promptly. | 4 | 4 | 16 | Add policy-update ingestion checks and manual override workflow for urgent corrections. | Ira Narisma |
+| Map and trend queries slow down under high traffic during crisis news cycles. | 3 | 4 | 12 | Add caching, query limits, and autoscaling rules for peak demand windows. | Rald Helbiro |
+| Event impact tags are inconsistent across editors. | 3 | 3 | 9 | Publish tagging rubric, train editors, and run periodic QA consistency audits. | Vin Gerebise |
+| Data licensing restrictions limit redistribution of station-level prices. | 2 | 5 | 10 | Review provider contracts, limit restricted exports, and include licensing notice in downloads. | Ira Narisma |

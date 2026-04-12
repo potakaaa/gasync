@@ -1,34 +1,34 @@
-# Sprint 1 Plan: Group Work Contribution Analyzer
+# Sprint 1 Plan: Gas Price Viewer
 
-Sprint goal: deliver the MVP contribution workflow with evaluations, task tracking, and first-pass scoring.
+Sprint goal: deliver the MVP gas price viewer with location-based prices, trend visibility, and world-event context for high fuel costs.
 
 ## Selected Stories (Sprint 1)
 
 | Story | Summary | Priority | Points | Owner |
 | --- | --- | --- | --- | --- |
-| Story 1 | Self evaluation submission | High | 3 | Rald Helbiro |
-| Story 2 | Peer rating submission | High | 5 | Vin Gerebise |
-| Story 3 | Review period setup | High | 3 | Ira Narisma |
-| Story 4 | Task create and status updates | High | 5 | Hans Del Mundo |
-| Story 11 | Configurable scoring weights | High | 5 | Ira Narisma |
-| Story 6 | Initial contribution score formula | High | 8 | Rald Helbiro |
+| Story 1 | Nearby station price list | High | 3 | Rald Helbiro |
+| Story 2 | Fuel type comparison filters | High | 5 | Vin Gerebise |
+| Story 3 | 7-day and 30-day price trends | High | 5 | Ira Narisma |
+| Story 6 | World events feed with citations | High | 8 | Hans Del Mundo |
+| Story 11 | Event impact tagging on spikes | High | 5 | Ira Narisma |
+| Story 4 | Price spike threshold alerts | High | 8 | Rald Helbiro |
 
-Total points: 29
+Total points: 34
 
 ## Sprint Scope
 
-- Build review period setup and evaluation submission flow.
-- Build basic task tracking and activity log capture.
-- Implement and validate initial contribution score calculation.
+- Build location search and nearby station price list.
+- Build trend charts and event feed to explain high-price periods.
+- Build alert logic for rapid gas price increases.
 
 ## Definition of Done
 
 - Each selected story meets all acceptance criteria in the backlog.
 - QA sign-off is recorded for each completed story.
-- Sprint demo includes end-to-end flow from task updates to score output.
+- Sprint demo includes searching location, viewing high-price trend, and checking event-linked explanations.
 
 ## Change Request Simulation
 
-- Added requirement in sprint: Story 11 (configurable scoring weights).
-- Deferred from sprint: Story 5 (activity logging for key actions) to next sprint.
-- Reason: keep sprint effort stable while absorbing the change request.
+- Added requirement in sprint: Story 11 (event impact tagging).
+- Deferred from sprint: Story 5 (map price markers) to next sprint.
+- Reason: keep sprint effort stable while prioritizing current world-event visibility needs.
