@@ -1,9 +1,15 @@
+import Link from "next/link";
+
 import {
+  buildSearchHref,
   classifyPriceBand,
   filterStationsByFuelType,
   formatPrice,
+  fuelTypeLabels,
+  fuelTypeOptions,
   getTrendDirection,
   isFreshPriceUpdate,
+  resolveFuelTypeFilter,
   sortStationsByPrice,
   type FuelType,
   type StationPrice,
@@ -30,6 +36,13 @@ type EventCard = {
   source: string;
   summary: string;
 };
+
+type PageSearchParams = {
+  location?: string | string[];
+  fuel?: string | string[];
+};
+
+const locationPresets = ["Detroit, MI", "San Antonio, TX", "94016"] as const;
 
 const nowIso = "2026-04-12T10:30:00Z";
 
@@ -81,8 +94,6 @@ const stations: StationCard[] = [
   },
 ];
 
-const selectedFuelType: FuelType = "premium";
-
 const trendWindows: TrendWindow[] = [
   {
     label: "7-day trend",
@@ -126,12 +137,6 @@ const eventCards: EventCard[] = [
       "Storm activity slowed deliveries and made the latest trend window more sensitive to supply delays.",
   },
 ];
-
-const sortedStations = sortStationsByPrice(stations);
-const selectedStations = filterStationsByFuelType(sortedStations, selectedFuelType);
-const freshStationCount = sortedStations.filter((station) =>
-  isFreshPriceUpdate(station.updatedAt, nowIso),
-).length;
 const trendPulse = getTrendDirection(3.74, 3.91);
 
 const bandStyles = {
@@ -152,29 +157,50 @@ const directionLabels = {
   flat: "Stable",
 } satisfies Record<"up" | "down" | "flat", string>;
 
-const statCards = [
-  {
-    label: "Fresh station updates",
-    value: `${freshStationCount} of ${sortedStations.length}`,
-    detail: "One listing is outside the freshness window.",
-  },
-  {
-    label: "Trend pulse",
-    value: directionLabels[trendPulse],
-    detail: "The 7-day average is above the prior period.",
-  },
-  {
-    label: "Cited events",
-    value: `${eventCards.length}`,
-    detail: "Every event card includes a source reference.",
-  },
-];
-
 function getFreshnessLabel(isFresh: boolean): string {
   return isFresh ? "Fresh update" : "Stale update";
 }
 
-export default function Home() {
+function getQueryValue(value: string | string[] | undefined, fallback: string): string {
+  if (Array.isArray(value)) {
+    return value[0] ?? fallback;
+  }
+
+  return value?.trim() || fallback;
+}
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<PageSearchParams>;
+}) {
+  const query = await searchParams;
+  const currentLocation = getQueryValue(query.location, "Detroit, MI");
+  const selectedFuelType: FuelType = resolveFuelTypeFilter(query.fuel);
+  const visibleStations = sortStationsByPrice(
+    filterStationsByFuelType(stations, selectedFuelType),
+  );
+  const freshStationCount = visibleStations.filter((station) =>
+    isFreshPriceUpdate(station.updatedAt, nowIso),
+  ).length;
+  const statCards = [
+    {
+      label: "Active fuel type",
+      value: fuelTypeLabels[selectedFuelType],
+      detail: "Fuel-type links and search submissions keep this selection in the URL.",
+    },
+    {
+      label: "Visible stations",
+      value: `${visibleStations.length}`,
+      detail: "Results stay sorted from the lowest price to the highest price.",
+    },
+    {
+      label: "Fresh station updates",
+      value: `${freshStationCount} of ${visibleStations.length}`,
+      detail: "One visible listing is outside the freshness window.",
+    },
+  ];
+
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.14),transparent_30%),radial-gradient(circle_at_top_right,rgba(16,185,129,0.12),transparent_26%),linear-gradient(180deg,#07111f_0%,#040711_55%,#050816_100%)] px-6 py-8 text-slate-50 sm:px-10 lg:px-12">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
@@ -214,41 +240,75 @@ export default function Home() {
                 </div>
 
                 <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                  <label
-                    className="text-sm font-medium text-slate-200"
-                    htmlFor="location-search"
-                  >
-                    Location search
-                  </label>
-                  <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-                    <input
-                      id="location-search"
-                      type="text"
-                      defaultValue="Detroit, MI"
-                      placeholder="City or ZIP code"
-                      aria-label="Search city or ZIP code"
-                      className="h-12 flex-1 rounded-2xl border border-white/10 bg-slate-950/70 px-4 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-300/60"
-                    />
-                    <button
-                      type="button"
-                      className="inline-flex h-12 items-center justify-center rounded-2xl bg-amber-300 px-5 text-sm font-semibold text-slate-950 transition-colors hover:bg-amber-200"
-                    >
-                      Search
-                    </button>
+                  <form method="get" action="/" className="space-y-4">
+                    <div>
+                      <label
+                        className="text-sm font-medium text-slate-200"
+                        htmlFor="location-search"
+                      >
+                        Location search
+                      </label>
+                      <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+                        <input
+                          id="location-search"
+                          name="location"
+                          type="text"
+                          defaultValue={currentLocation}
+                          placeholder="City or ZIP code"
+                          aria-label="Search city or ZIP code"
+                          className="h-12 flex-1 rounded-2xl border border-white/10 bg-slate-950/70 px-4 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-300/60"
+                        />
+                        <input type="hidden" name="fuel" value={selectedFuelType} />
+                        <button
+                          type="submit"
+                          className="inline-flex h-12 items-center justify-center rounded-2xl bg-amber-300 px-5 text-sm font-semibold text-slate-950 transition-colors hover:bg-amber-200"
+                        >
+                          Search
+                        </button>
+                      </div>
+                    </div>
+
+                    <p className="text-xs leading-5 text-slate-400">
+                      The selected fuel type stays in the search when you change location.
+                    </p>
+                  </form>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {fuelTypeOptions.map((fuelType) => {
+                      const isActive = fuelType === selectedFuelType;
+
+                      return (
+                        <Link
+                          key={fuelType}
+                          href={buildSearchHref({
+                            location: currentLocation,
+                            fuelType,
+                          })}
+                          aria-current={isActive ? "page" : undefined}
+                          className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] transition-colors ${
+                            isActive
+                              ? "border-amber-300/40 bg-amber-300/15 text-amber-100"
+                              : "border-white/10 bg-white/[0.04] text-slate-300 hover:border-white/20 hover:bg-white/[0.08]"
+                          }`}
+                        >
+                          {fuelTypeLabels[fuelType]}
+                        </Link>
+                      );
+                    })}
                   </div>
 
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {[
-                      "Detroit, MI",
-                      "San Antonio, TX",
-                      "94016",
-                    ].map((place) => (
-                      <span
+                    {locationPresets.map((place) => (
+                      <Link
                         key={place}
-                        className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-slate-300"
+                        href={buildSearchHref({
+                          location: place,
+                          fuelType: selectedFuelType,
+                        })}
+                        className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-slate-300 transition-colors hover:border-white/20 hover:bg-white/[0.08]"
                       >
                         {place}
-                      </span>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -288,7 +348,7 @@ export default function Home() {
               </div>
 
               <div className="mt-6 space-y-3">
-                {sortedStations.map((station) => {
+                {visibleStations.map((station) => {
                   const band = classifyPriceBand(station.price, station.benchmark);
                   const isFresh = isFreshPriceUpdate(station.updatedAt, nowIso);
 
@@ -336,8 +396,8 @@ export default function Home() {
               </div>
 
               <div className="mt-5 rounded-2xl border border-dashed border-white/10 bg-black/20 p-4 text-sm text-slate-300">
-                Premium filter preview: {selectedStations.length} stations match the
-                active fuel type.
+                {fuelTypeLabels[selectedFuelType]} filter preview: {visibleStations.length} stations
+                match the active fuel type.
               </div>
             </section>
           </div>

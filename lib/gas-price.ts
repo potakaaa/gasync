@@ -1,11 +1,61 @@
 export type FuelType = "regular" | "midgrade" | "premium";
 
+export const fuelTypeOptions: FuelType[] = ["regular", "midgrade", "premium"];
+
+export const fuelTypeLabels: Record<FuelType, string> = {
+  regular: "Regular",
+  midgrade: "Midgrade",
+  premium: "Premium",
+};
+
 export type StationPrice = {
   name: string;
   fuelType: FuelType;
   price: number;
   updatedAt: string;
 };
+
+type SearchHrefOptions = {
+  location?: string;
+  fuelType?: FuelType;
+  pathname?: string;
+};
+
+export function isFuelType(value: string | null | undefined): value is FuelType {
+  return fuelTypeOptions.includes(value as FuelType);
+}
+
+export function resolveFuelTypeFilter(
+  value: string | string[] | undefined,
+  fallback: FuelType = "premium",
+): FuelType {
+  const candidate = Array.isArray(value) ? value[0] : value;
+
+  if (candidate && isFuelType(candidate)) {
+    return candidate;
+  }
+
+  return fallback;
+}
+
+export function buildSearchHref({
+  location,
+  fuelType,
+  pathname = "/",
+}: SearchHrefOptions): string {
+  const params = new URLSearchParams();
+
+  if (location?.trim()) {
+    params.set("location", location.trim());
+  }
+
+  if (fuelType) {
+    params.set("fuel", fuelType);
+  }
+
+  const query = params.toString();
+  return query ? `${pathname}?${query}` : pathname;
+}
 
 export function formatPrice(price: number): string {
   return `$${price.toFixed(2)}`;

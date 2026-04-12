@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  buildSearchHref,
   classifyPriceBand,
   filterStationsByFuelType,
   formatPrice,
   getTrendDirection,
   isFreshPriceUpdate,
+  resolveFuelTypeFilter,
   sortStationsByPrice,
   type StationPrice,
 } from "./gas-price";
@@ -84,5 +86,26 @@ describe("gas price helpers", () => {
     expect(classifyPriceBand(3.5, 3.8)).toBe("low");
     expect(classifyPriceBand(3.8, 3.8)).toBe("medium");
     expect(classifyPriceBand(4.1, 3.8)).toBe("high");
+  });
+
+  it("resolves a valid fuel-type query value", () => {
+    expect(resolveFuelTypeFilter("regular")).toBe("regular");
+  });
+
+  it("falls back to the default fuel type when the query is invalid", () => {
+    expect(resolveFuelTypeFilter("diesel")).toBe("premium");
+    expect(resolveFuelTypeFilter(["midgrade", "premium"])).toBe("midgrade");
+  });
+
+  it("builds a search href that preserves location and fuel type", () => {
+    const href = buildSearchHref({
+      location: "Detroit, MI",
+      fuelType: "premium",
+    });
+
+    const params = new URLSearchParams(href.split("?")[1]);
+
+    expect(params.get("location")).toBe("Detroit, MI");
+    expect(params.get("fuel")).toBe("premium");
   });
 });
