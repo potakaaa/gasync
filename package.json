@@ -10,7 +10,8 @@
     "lint": "eslint",
     "test": "vitest run --passWithNoTests",
     "test:unit": "vitest run --environment node --passWithNoTests",
-    "test:integration": "vitest run --environment jsdom --passWithNoTests"
+    "test:integration": "vitest run --environment jsdom --passWithNoTests",
+    "measure:previous-closes": "vitest run scripts/previous-closes-performance.test.ts --reporter=verbose"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
