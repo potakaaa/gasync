@@ -326,6 +326,9 @@ export async function fetchHistoricalCommodityRates(
  * Walks back up to {@link MAX_PRIOR_DAYS_TO_SCAN} UTC calendar days from
  * `latestTimestamp` and merges prior closes until each commodity symbol has a
  * baseline (for daily % vs previous close).
+ *
+ * Historical days are fetched in **parallel** (one wave) so wall-clock latency
+ * is ~one upstream round-trip instead of up to ten sequential calls.
  */
 export async function resolvePreviousClosesForSymbols(
   apiKey: string,
@@ -339,17 +342,22 @@ export async function resolvePreviousClosesForSymbols(
 
   const historicalBase = resolveHistoricalBaseUrl(latestUpstreamUrl);
   const anchorMs = latestTimestamp * 1000;
-  const out: Partial<Record<CommoditySymbol, number>> = {};
-
+  const dates: string[] = [];
   for (let dayOffset = 1; dayOffset <= MAX_PRIOR_DAYS_TO_SCAN; dayOffset++) {
     const d = new Date(anchorMs);
     d.setUTCDate(d.getUTCDate() - dayOffset);
-    const dateStr = formatUtcDateYYYYMMDD(d);
-    const result = await fetchHistoricalCommodityRates(
-      trimmed,
-      dateStr,
-      historicalBase,
-    );
+    dates.push(formatUtcDateYYYYMMDD(d));
+  }
+
+  const results = await Promise.all(
+    dates.map((dateStr) =>
+      fetchHistoricalCommodityRates(trimmed, dateStr, historicalBase),
+    ),
+  );
+
+  const out: Partial<Record<CommoditySymbol, number>> = {};
+  for (let i = 0; i < results.length; i++) {
+    const result = results[i];
     if (!result.ok) {
       continue;
     }
