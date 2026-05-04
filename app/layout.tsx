@@ -4,6 +4,7 @@ import { Geist_Mono, Inter, Manrope } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
+import BackToTop from "@/components/gasync/back-to-top";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -45,6 +46,7 @@ export default function RootLayout({
           storageKey="gasync-ui-theme"
         >
           {children}
+          <BackToTop />
         </ThemeProvider>
       </body>
     </html>
