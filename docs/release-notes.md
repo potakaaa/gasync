@@ -1,3 +1,8 @@
+# v0.5-scm - 2026-04-16
+
+- Added animated "Back to Top" floating button for better dashboard navigation.
+- Integrated component into the Root Layout for site-wide availability.
+
 # Release Notes: v0.5
 
 Release date: 2026-04-12
