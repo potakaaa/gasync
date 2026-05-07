@@ -12,17 +12,17 @@ Provide a single, repeatable path from source control to a live Vercel deploymen
 |------|--------|
 | **Host** | [Vercel](https://vercel.com) |
 | **Application** | Next.js 16 (`next build` / Node runtime as selected by Vercel) |
-| **Repository** | Connected Git repository (GitHub); production deploys track the configured production branch (typically `main` or `development` per team convention) |
+| **Repository** | Connected Git repository (GitHub); production deploys track `main` |
 | **Regions** | Vercel default region unless overridden in project settings |
 | **Secrets** | API keys and tokens live in **Vercel → Project → Settings → Environment Variables**. Never commit secrets to the repo. |
 
-High-level flow: **Git push → Vercel build (`npm run build`) → edge/serverless deployment → production URL** (e.g. `*.vercel.app` or a custom domain).
+High-level flow: **Git push to `main` → GitHub Actions test/build/deploy → Vercel production URL** (e.g. `*.vercel.app` or a custom domain).
 
 ## Rollout strategy: big-bang
 
 We use **big-bang deployment**: each production release replaces the previous deployment in one step when the new build succeeds.
 
-- **When it runs**: Merging to the production branch (or manual “Deploy” from the Vercel dashboard) triggers a full new build; on success, traffic immediately serves the new version.
+- **When it runs**: Merging or pushing to `main` triggers the automated GitHub Actions pipeline; on success, traffic immediately serves the new version.
 - **Why it fits**: The app is a small team / course deliverable; traffic splitting (canary/blue-green) is optional complexity. Vercel still keeps **deployment history**, so rollback is “promote an older deployment,” not a separate long-lived stack.
 - **Risk note**: There is no gradual traffic shift. Mitigate with CI, tests, and preview deployments on pull requests before merging.
 
@@ -54,7 +54,7 @@ If the live site is broken after a deploy, follow these steps in order.
 
 - **Build**: Vercel build logs must show `next build` completing without errors.
 - **Runtime**: Use Vercel deployment **Logs** for serverless/edge errors after release.
-- **Smoke test**: After each production deploy, confirm the main page and one critical user path.
+- **Smoke test**: After each production deploy, confirm the main page and the `/api/health` endpoint return 200.
 
 ## Related documents
 
